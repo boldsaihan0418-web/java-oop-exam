@@ -41,45 +41,140 @@ java-oop-exam/
 └── .github/workflows/exam.yml         # GitHub Actions автомат шалгагч
 ```
 
-## 🚀 Эхлэх заавар
+## 🚀 Шалгалт өгөх заавар (Алхам алхмаар)
 
-### Алхам 1: Fork хийх
-Энэ repo-г өөрийн GitHub account руу **Fork** хийнэ.
+### Алхам 1: Repo-г Fork хийх
 
-### Алхам 2: Clone хийх
+1. Браузераар [`UEFA-OPP/java-oop-exam`](https://github.com/UEFA-OPP/java-oop-exam) repo руу орно
+2. Баруун дээд буланд байрлах **Fork** товч дарна
+3. Owner-ээр **өөрийн account**-ийг сонгоод **Create fork** дарна
+4. Та одоо `https://github.com/<таны-username>/java-oop-exam` гэсэн хуулбар repo-той боллоо
+
+### Алхам 2: Компьютер дээрээ Clone хийх
+
 ```bash
+# <таны-username> гэдгийг өөрийн GitHub username-ээр солино
 git clone https://github.com/<таны-username>/java-oop-exam.git
 cd java-oop-exam
 ```
 
-### Алхам 3: Branch үүсгэх
+> **Санамж:** SSH key тохируулсан бол `git@github.com:<таны-username>/java-oop-exam.git` ашиглаж болно.
+
+### Алхам 3: Өөрийн нэрээр branch үүсгэх
+
 ```bash
-git checkout -b exam/миний-нэр
+# Жишээ: git checkout -b exam/bat-erdene
+git checkout -b exam/<өөрийн-нэр>
 ```
 
-### Алхам 4: Код бичих
-`assignments/` хавтас дахь `.java` файлуудын `TODO` коммент дээр код бичнэ. Даалгавар тус бүрийн `README.md` файлыг анхааралтай уншина уу.
+> **Яагаад branch үүсгэх вэ?** `main` branch-д шууд бичвэл PR үүсгэх боломжгүй. Заавал шинэ branch дээр ажиллана.
 
-### Алхам 5: Локал тест ажиллуулах
+### Алхам 4: Даалгаврын зааврыг унших
+
+Даалгавар тус бүрийн хавтас дахь `README.md` файлыг нээж, шаардлагыг анхааралтай уншина:
+
 ```bash
-# Бүх даалгавар
+# Даалгавар 1-ийн зааврыг харах
+cat assignments/spaceship/README.md
+
+# Даалгавар 2
+cat assignments/foodstation/README.md
+
+# Даалгавар 3
+cat assignments/commsystem/README.md
+```
+
+### Алхам 5: Код бичих
+
+`.java` файл дахь `// TODO` коммент бүрийг өөрийн кодоор солино:
+
+| Даалгавар | Файл | Юу хийх |
+|-----------|------|---------|
+| 1 | `assignments/spaceship/SpaceShip.java` | Field, constructor, 4 method бичих |
+| 2 | `assignments/foodstation/FoodStation.java` | Field, constructor, 4 method бичих |
+| 3 | `assignments/commsystem/CommSystem.java` | Field, constructor, 5 method бичих |
+
+> **Зөвлөгөө:** Даалгавар 1-ээс эхэлж, тест ажиллуулж зөв болгоод, дараагийнх руу шилжих нь илүү үр дүнтэй.
+
+### Алхам 6: Локал тест ажиллуулах
+
+Код бичсэний дараа тест ажиллуулж шалгана. JUnit jar автоматаар татагдана:
+
+```bash
+# Бүх даалгаврыг нэг дор шалгах
 bash scripts/run_tests.sh
 
-# Тодорхой даалгавар
+# Тодорхой даалгавар дангаар шалгах
 bash scripts/run_tests.sh spaceship
 bash scripts/run_tests.sh foodstation
 bash scripts/run_tests.sh commsystem
 ```
 
-### Алхам 6: Commit & Push
-```bash
-git add assignments/
-git commit -m "Шалгалтын хариулт"
-git push origin exam/миний-нэр
+Тест амжилттай бол ногоон ✓, амжилтгүй бол шар △ гарна. Алдааны мессежийг уншиж, кодоо засна.
+
+**Жишээ output:**
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Даалгавар 1: SpaceShip
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[1/3] Компайл хийж байна...
+  ✓ Компайл амжилттай
+[2/3] Тест ажиллуулж байна...
+  ✓ Бүх тест амжилттай (16/16)
+[3/3] AI Detection...
+  ✅ LOW (Score: 4/121)
 ```
 
-### Алхам 7: Pull Request үүсгэх
-GitHub дээр `main` branch руу **Pull Request** үүсгэнэ. Автомат шалгагч ажиллана.
+### Алхам 7: Commit хийх
+
+Бүх тест амжилттай болсны дараа өөрийн кодыг commit хийнэ:
+
+```bash
+# Зөвхөн assignments/ хавтас дахь файлуудыг stage хийнэ
+git add assignments/
+
+# Commit мессежээ бичнэ
+git commit -m "Шалгалтын хариулт - <таны нэр>"
+```
+
+> **Анхааруулга:** `tests/`, `scripts/`, `.github/` хавтсуудыг **commit хийхгүй**. Зөвхөн `assignments/` доторх файлуудыг илгээнэ.
+
+### Алхам 8: GitHub руу Push хийх
+
+```bash
+# <өөрийн-нэр> гэдгийг Алхам 3 дээр үүсгэсэн branch нэрээр солино
+git push origin exam/<өөрийн-нэр>
+```
+
+Хэрэв push хийх үед нууц үг асуувал GitHub Personal Access Token эсвэл SSH key шаардлагатай.
+
+### Алхам 9: Pull Request (PR) үүсгэх
+
+1. Браузераар **өөрийн fork** repo руу орно: `https://github.com/<таны-username>/java-oop-exam`
+2. Дээд талд шар өнгийн **"Compare & pull request"** товч гарсан байна — дарна
+3. Хэрэв товч харагдахгүй бол:
+   - **Pull requests** таб → **New pull request** дарна
+   - **base repository:** `UEFA-OPP/java-oop-exam` | **base:** `main`
+   - **head repository:** `<таны-username>/java-oop-exam` | **compare:** `exam/<өөрийн-нэр>`
+4. PR title-д **өөрийн нэр, бүлгийг** бичнэ. Жишээ: `Бат-Эрдэнэ - SE401`
+5. **Create pull request** дарна
+
+### Алхам 10: Автомат шалгалтын дүнг харах
+
+PR үүсгэсний дараа **GitHub Actions** автоматаар ажиллана:
+
+1. PR хуудасны доод талд **Checks** хэсэг гарна
+2. Шар тойрог ⏳ = ажиллаж байна, Ногоон ✅ = амжилттай, Улаан ❌ = алдаатай
+3. **Details** дарж дэлгэрэнгүй дүнг харна
+4. PR-ийн доод хэсэгт **дүнгийн хүснэгт** автоматаар бичигдэнэ:
+
+| Даалгавар | Оноо | Компайл & Тест | AI Detection |
+|-----------|------|----------------|--------------|
+| 1. SpaceShip | 25 | ✅ Pass | ✅ LOW (4) |
+| 2. FoodStation | 30 | ⚠️ Partial | ✅ LOW (2) |
+| 3. CommSystem | 35 | ❌ Compile Error | ❓ N/A |
+
+> **Алдаатай бол?** Кодоо засаад дахин commit + push хийнэ. PR автоматаар шинэчлэгдэж, тест дахин ажиллана. Хэдэн ч удаа push хийж болно.
 
 ## 📊 Оноо тооцох систем
 
