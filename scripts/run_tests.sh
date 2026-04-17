@@ -74,8 +74,8 @@ run_assignment() {
     test_output=$(java -jar "$LIB_DIR/$JUNIT_JAR" --class-path "$build" --select-class "${test_file%.java}" --disable-ansi-colors 2>&1)
     local test_exit=$?
 
-    local passed=$(echo "$test_output" | grep -oP '\d+ tests successful' | grep -oP '\d+' || echo "0")
-    local failed=$(echo "$test_output" | grep -oP '\d+ tests failed' | grep -oP '\d+' || echo "0")
+    local passed=$(echo "$test_output" | grep -E "[0-9]+ tests successful" | grep -Eo "[0-9]+" | head -1 || echo "0")
+    local failed=$(echo "$test_output" | grep -E "[0-9]+ tests failed" | grep -Eo "[0-9]+" | head -1 || echo "0")
     local total=$((passed + failed))
 
     if [ $test_exit -eq 0 ]; then
